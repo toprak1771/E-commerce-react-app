@@ -1,0 +1,54 @@
+.nav{
+    display: flex;
+    justify-content: space-between;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 20px;
+    border-bottom:solid black 2px;
+}
+
+.home {
+
+}
+
+.nav .left .home li a{
+    text-decoration: none;
+    color: black;
+    font-size: 1.1rem;
+    display: block;
+    
+}
+.nav .left .home li a:hover {
+    text-decoration: none;
+    color: blue;
+   
+}
+.nav .left{
+    display: flex;
+    text-decoration: none;
+}
+
+.nav .right {
+ margin-bottom: 10px;
+}
+
+.nav .left .menu {
+    display: flex;
+    margin-left: 30px;
+}
+
+.nav .left .menu li a {
+    text-decoration: none;
+    color: black;
+    font-size: 1.1rem;
+    display: block;
+}
+
+.nav .left .menu li a:hover {
+    text-decoration: none;
+    color: blue;
+}
+
+.nav .right .leftbutton {
+    margin-right: 10px;
+}
