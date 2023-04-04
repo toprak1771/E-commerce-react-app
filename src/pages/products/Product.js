@@ -2,7 +2,7 @@ import React from 'react';
 import Index from '../../components/card/Index';
 import { Grid } from '@mantine/core';
 import {
-  useQuery,
+  useQuery ,
 } from '@tanstack/react-query';
 import { ProductApi } from '../../api/ProductApi';
 
@@ -23,3 +23,4 @@ function Product() {
 }
 
 export default Product;
+

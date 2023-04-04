@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 
 export const ProductApi = async () => {
-  const {data} = await axios.get("http://localhost:4000/product");
+  const {data} = await axios.get(`http://localhost:4000/product`);
   return data;
 };
 
