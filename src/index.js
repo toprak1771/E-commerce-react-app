@@ -2,20 +2,29 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import './reset.css';
+import './input.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { Provider } from 'react-redux';
+import rootReducer from './redux/rootReducer';
+import { createStore } from 'redux';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.min.js';
+import 'popper.js/dist/umd/popper.min.js';
 
 const queryClient = new QueryClient();
-
+const store = createStore(rootReducer);
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <App />
-      <ReactQueryDevtools initialIsOpen={false} />
-    </QueryClientProvider>
+    <Provider store={store}>
+      <QueryClientProvider client={queryClient}>
+        <App />
+        <ReactQueryDevtools initialIsOpen={false} />
+      </QueryClientProvider>
+    </Provider>
   </React.StrictMode>
 );
 

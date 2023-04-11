@@ -9,6 +9,7 @@ import Button from '@mui/material/Button';
 
 function ProductDetail() {
   const { product_id } = useParams();
+  console.log(product_id);
   const { isLoading, error, data } = useQuery(['product', product_id], () => {
     return ProductGetDetail(product_id);
   });
