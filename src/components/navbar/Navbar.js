@@ -42,7 +42,7 @@ function Navbar() {
             </>
           ) : (
             <>
-              <Link className={styles.leftbutton}>
+              <Link to="/profile" className={styles.leftbutton}>
                 <Button size="small" variant="contained">
                   Profile
                 </Button>

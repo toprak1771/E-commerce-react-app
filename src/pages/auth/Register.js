@@ -3,7 +3,7 @@ import { Title, TextInput, Flex, Stack } from '@mantine/core';
 import { useFormik } from 'formik';
 import Button from '@mui/material/Button';
 import validations from './ValidationsRegister';
-import { AuthRegister } from '../../api/AuthApi';
+import { AuthRegister, AuthMe } from '../../api/AuthApi';
 
 import { Box } from '@mui/material';
 import { useSelector, useDispatch } from 'react-redux';
@@ -14,9 +14,9 @@ function Register() {
   const dispatch = useDispatch();
   const loginData = useSelector((state) => state.user.login);
   const user = useSelector((state) => state.user.data);
-  // console.log('loginData:', loginData);
-  //console.log('user:', user);
+ 
   const [loginError, setLoginError] = useState(null);
+
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -31,8 +31,8 @@ function Register() {
           password: values.password,
         });
         console.log('data:', responseData);
+        localStorage.setItem('access_token', responseData.accessToken);
         dispatch(setInLogin(true));
-        dispatch(setUserData(responseData));
         formik.resetForm();
       } catch (e) {
         console.log(e.response.data.message);
@@ -119,7 +119,7 @@ function Register() {
             type="submit"
             sx={{
               textAlign: 'center',
-              justifyContent: 'center'
+              justifyContent: 'center',
             }}
             variant="contained"
             color="secondary"

@@ -1,6 +1,6 @@
 import React from 'react';
 import Index from '../../components/card/Index';
-import { Grid } from '@mantine/core';
+import { Grid, Button } from '@mantine/core';
 import { useParams } from 'react-router-dom';
 import { Link, useLocation } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
@@ -10,7 +10,7 @@ function Product() {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const page = searchParams.get('page');
-  console.log(page);
+  console.log('page:', page);
   const { isLoading, error, data } = useQuery(['products', page], () => {
     return ProductApi(page);
   });
@@ -18,36 +18,44 @@ function Product() {
   if (isLoading) return 'Loading...';
   if (error) return 'Error:' + error.message;
 
-  console.log(data);
+  console.log('data:', data);
+  console.log('current:', data.current);
+  const pageArray = [];
+  for (let i = 1; i <= data.totalPages; i++) {
+    pageArray.push(i);
+  }
 
-  const pageFunc = () => {
-   if(data.totalPages > 0){
-    console.log("total:",data.totalPages);
-    for(let i=1;i<=data.totalPages;i++){
-      return (<button>1</button>)
-    }
-   }
-  };
+  console.log('array:', pageArray);
+  pageArray.map((item) => {
+    console.log(item);
+  });
   return (
     <>
       <Grid
-      justify="space-between"
-      sx={{ paddingLeft: '15px', paddingTop: '15px', margin: '0' }}
-    >
-      {data.products.map((item, key) => (
-        <Grid.Col span={4}>
-          <Index key={key} item={item} />
-        </Grid.Col>
-      ))}    
-    </Grid>
-      <div className='d-flex justify-content-center'>
+        justify="space-between"
+        sx={{ paddingLeft: '15px', paddingTop: '15px', margin: '0' }}
+      >
+        {data.products.map((item, key) => (
+          <Grid.Col span={4}>
+            <Index key={key} item={item} />
+          </Grid.Col>
+        ))}
+      </Grid>
       <div className="d-flex justify-content-center">
-        <button><a href='/products?page=1'>1</a></button>
-        <button><a href='/products?page=2'>2</a></button>
-      </div>
+        <div className="d-flex justify-content-center">
+          {pageArray.map((index) => (
+            <Button variant="default">
+              <a
+                className="underline-offset-0 opacity-100"
+                href={`/products?page=${index}`}
+              >
+                {index}
+              </a>
+            </Button>
+          ))}
+        </div>
       </div>
     </>
-  
   );
 }
 
