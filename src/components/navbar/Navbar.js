@@ -1,12 +1,47 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import styles from './styles.module.css';
 import Button from '@mui/material/Button';
 import { useSelector, useDispatch } from 'react-redux';
+import { setInLogin } from '../../redux/user/actions';
+import { AuthLogout } from '../../api/AuthApi';
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
+
 function Navbar() {
+  const Alert = React.forwardRef(function Alert(props, ref) {
+    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+  });
   const loginData = useSelector((state) => state.user.login);
   const user = useSelector((state) => state.user.data);
-  console.log("loginDataa:",loginData);
+  const _refreshToken = localStorage.getItem('refresh_token');
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [open, setOpen] = React.useState(false);
+
+  const logOut = async (newState) => {
+    try {
+      const responseData = await AuthLogout({
+        refresh_token: _refreshToken,
+      });
+      localStorage.removeItem('access_token');
+      localStorage.removeItem('refresh_token');
+      dispatch(setInLogin(false));
+      navigate('/');
+      setOpen(true);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+  };
+
   return (
     <div>
       <nav className={styles.nav}>
@@ -48,7 +83,7 @@ function Navbar() {
                 </Button>
               </Link>
               <Link>
-                <Button size="small" variant="contained">
+                <Button size="small" variant="contained" onClick={logOut}>
                   Logout
                 </Button>
               </Link>
@@ -56,6 +91,11 @@ function Navbar() {
           )}
         </div>
       </nav>
+      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity="info" sx={{ width: '100%' }}>
+          Çıkış başarılı.
+        </Alert>
+      </Snackbar>
     </div>
   );
 }

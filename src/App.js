@@ -1,32 +1,29 @@
 import logo from './logo.svg';
 import './App.css';
 import Navbar from './components/navbar/Navbar';
-import { React, useEffect } from 'react';
+import { React, useEffect, useState } from 'react';
 import { Routes, Route, BrowserRouter } from 'react-router-dom';
 import SıgnIn from './pages/auth/SıgnIn';
 import Register from './pages/auth/Register';
 import Product from './pages/products/Product';
 import ProductDetail from './pages/products/ProductDetail';
 import { AuthMe } from './api/AuthApi';
-import { setInLogin,setUserData } from './redux/user/actions';
+import { setInLogin, setUserData } from './redux/user/actions';
 import { useSelector, useDispatch } from 'react-redux';
 import Profile from './pages/profile/Profile';
 function App() {
   const dispatch = useDispatch();
   const token = localStorage.getItem('access_token');
+  const [loading, setLoading] = useState(true);
 
-  
   useEffect(() => {
     (async () => {
-      try{
+      try {
         const me = await AuthMe(token);
         dispatch(setInLogin(true));
-        dispatch(setUserData(me));
-      }
-      catch(e){
-
-      }
-    })()
+        setLoading(false);
+      } catch (e) {}
+    })();
   }, []);
   return (
     <BrowserRouter>
@@ -41,7 +38,7 @@ function App() {
         ></Route>
         <Route path="/signin" element={<SıgnIn></SıgnIn>}></Route>
         <Route path="/signUp" element={<Register></Register>}></Route>
-        <Route path='/profile' element={<Profile></Profile>}></Route>
+        <Route path="/profile" element={<Profile></Profile>}></Route>
       </Routes>
     </BrowserRouter>
   );

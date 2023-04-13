@@ -7,7 +7,7 @@ function Profile() {
     <div className='flex flex-col justify-center'>
         <h2 className='flex justify-center mt-2'>Profile</h2>
         <div className='flex justify-center'>
-        {JSON.stringify(userData)}
+        {JSON.stringify(userData.user)}
         </div>
         
     </div>

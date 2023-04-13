@@ -39,3 +39,8 @@ export const AuthMe = async (token) => {
 
   return data;
 };
+
+export const AuthLogout = async (refresh_token) => {
+  const {data} = await axios.post(`http://localhost:4000/auth/logout`,refresh_token);
+  return data;
+}
