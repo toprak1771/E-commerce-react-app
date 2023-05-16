@@ -11,6 +11,8 @@ import { AuthMe } from './api/AuthApi';
 import { setInLogin, setUserData } from './redux/user/actions';
 import { useSelector, useDispatch } from 'react-redux';
 import Profile from './pages/profile/Profile';
+import ProtectedRoute from './ProtectedRoute';
+
 function App() {
   const dispatch = useDispatch();
   const token = localStorage.getItem('access_token');
@@ -38,7 +40,9 @@ function App() {
         ></Route>
         <Route path="/signin" element={<SıgnIn></SıgnIn>}></Route>
         <Route path="/signUp" element={<Register></Register>}></Route>
-        <Route path="/profile" element={<Profile></Profile>}></Route>
+        <Route element={<ProtectedRoute/>}>
+          <Route path='/profile' element={<Profile></Profile>}></Route>
+        </Route>
       </Routes>
     </BrowserRouter>
   );

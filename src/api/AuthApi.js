@@ -7,8 +7,10 @@ import axios from 'axios';
 
 export const AuthRegister = async (input) => {
   const { data } = await axios.post(
-    `http://localhost:4000/auth/register`,
-    input
+    `http://localhost:4000/auth/register`,{
+      email:input.email,
+      password:input.password
+    }
   );
   return data;
 };
