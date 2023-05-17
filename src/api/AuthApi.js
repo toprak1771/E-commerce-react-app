@@ -15,6 +15,11 @@ export const AuthRegister = async (input) => {
   return data;
 };
 
+export const AuthLogin = async (input) => {
+  const { data }  = await axios.post(`http://localhost:4000/auth/login`,input);
+  return data;
+}
+
 // axiosInterceptor.interceptors.request.use(
 //   function (config) {
 //     const { origin } = new URL(config.url);
