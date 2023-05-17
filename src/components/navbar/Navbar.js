@@ -18,6 +18,7 @@ function Navbar() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [open, setOpen] = React.useState(false);
+  const basketItemsNav = useSelector((state) => state.basket.items);
 
   const logOut = async (newState) => {
     try {
@@ -77,6 +78,15 @@ function Navbar() {
             </>
           ) : (
             <>
+              {basketItemsNav.length > 0 ? (
+                <Link to="/basket" className={styles.leftbutton}>
+                  <Button size="small" variant="contained">
+                    Basket {`(${basketItemsNav.length})`}
+                  </Button>
+                </Link>
+              ) : (
+                ''
+              )}
               <Link to="/profile" className={styles.leftbutton}>
                 <Button size="small" variant="contained">
                   Profile

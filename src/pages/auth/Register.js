@@ -17,11 +17,10 @@ function Register() {
   });
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const loginData = useSelector((state) => state.user.login);
-  const user = useSelector((state) => state.user.data);
-  const [open,setOpen] = useState(false);
+
+  const [open, setOpen] = useState(false);
   const [loginError, setLoginError] = useState(false);
-  const [errorMessage,setErrorMessage] = useState(null);
+  const [errorMessage, setErrorMessage] = useState(null);
 
   const formik = useFormik({
     initialValues: {
@@ -36,6 +35,7 @@ function Register() {
           email: values.email,
           password: values.password,
         });
+        
         localStorage.setItem('access_token', responseData.accessToken);
         localStorage.setItem('refresh_token', responseData.refreshToken);
         dispatch(setInLogin(true));
@@ -99,7 +99,7 @@ function Register() {
             <TextInput
               sx={{ textAlign: 'center', justifyContent: 'center' }}
               placeholder="Password"
-              type='password'
+              type="password"
               label="Password"
               name="password"
               onChange={formik.handleChange}
@@ -113,7 +113,7 @@ function Register() {
             <TextInput
               sx={{ textAlign: 'center', justifyContent: 'center' }}
               placeholder="Pasword Confirm"
-              type='password'
+              type="password"
               label="Password Confirm"
               name="passwordConfirm"
               onChange={formik.handleChange}
@@ -128,13 +128,13 @@ function Register() {
                 </div>
               )}
           </Stack>
-         
+
           <Button
             type="submit"
             sx={{
               textAlign: 'center',
               justifyContent: 'center',
-              marginTop:"15px"
+              marginTop: '15px',
             }}
             variant="contained"
             color="secondary"

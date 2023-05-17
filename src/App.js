@@ -18,6 +18,11 @@ function App() {
   const token = localStorage.getItem('access_token');
   const [loading, setLoading] = useState(true);
 
+  const basketData = useSelector((state) => state.basket.items);
+  useEffect(() => {
+    localStorage.setItem('basket', JSON.stringify(basketData));
+  }, [basketData]);
+
   useEffect(() => {
     (async () => {
       try {
@@ -40,8 +45,8 @@ function App() {
         ></Route>
         <Route path="/signin" element={<SıgnIn></SıgnIn>}></Route>
         <Route path="/signUp" element={<Register></Register>}></Route>
-        <Route element={<ProtectedRoute/>}>
-          <Route path='/profile' element={<Profile></Profile>}></Route>
+        <Route element={<ProtectedRoute />}>
+          <Route path="/profile" element={<Profile></Profile>}></Route>
         </Route>
       </Routes>
     </BrowserRouter>

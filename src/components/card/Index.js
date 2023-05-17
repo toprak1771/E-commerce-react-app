@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useState, useEffect } from 'react';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
@@ -7,14 +7,28 @@ import Typography from '@mui/material/Typography';
 import { Link, NavLink } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import moment from 'moment';
+import { addItem, deleteItem } from '../../redux/basket/actions';
+import { useSelector, useDispatch } from 'react-redux';
 
 function Index({ item }) {
-  console.log('item:', item);
+ 
+  const basketData = useSelector((state) => state.basket.items);
+  const dispatch = useDispatch();
   
+ const filteredData = basketData.find((basket_item) => basket_item._id === item._id);
+
+  const handleBasket = useCallback(() => {
+    dispatch(addItem(item));
+  }, [item]);
+
+  const removeBasket = useCallback(() => {
+    dispatch(deleteItem(item));
+  }, [item]);
+
   return (
     <div>
       <Box>
-      <Link to={`/products/${item._id}`}>
+        <Link to={`/products/${item._id}`}>
           <Card sx={{ maxWidth: 345 }}>
             <CardMedia
               component="img"
@@ -28,7 +42,7 @@ function Index({ item }) {
                 {item.title}
               </Typography>
               <Typography variant="body2" color="text.secondary">
-                {moment(item.createdAt).format("DD/MM/YYYY")}
+                {moment(item.createdAt).format('DD/MM/YYYY')}
               </Typography>
               <Typography variant="body2" color="text.secondary">
                 {item.description}
@@ -36,7 +50,47 @@ function Index({ item }) {
             </CardContent>
           </Card>
         </Link>
-        <Button size="small">Add basket</Button>
+        {!filteredData ? (
+              <>
+                <Button
+                  variant="outlined"
+                  color="success"
+                  size="small"
+                  onClick={handleBasket}
+                >
+                  Add basket
+                </Button>
+                <Button
+                  disabled
+                  variant="outlined"
+                  color="error"
+                  size="small"
+                  onClick={removeBasket}
+                >
+                  Remove basket
+                </Button>
+              </>
+            ) : (
+              <>
+                <Button
+                  disabled
+                  variant="outlined"
+                  color="success"
+                  size="small"
+                  onClick={handleBasket}
+                >
+                  Add basket
+                </Button>
+                <Button
+                  variant="outlined"
+                  color="error"
+                  size="small"
+                  onClick={removeBasket}
+                >
+                  Remove basket
+                </Button>
+              </>
+            )}
       </Box>
     </div>
   );
