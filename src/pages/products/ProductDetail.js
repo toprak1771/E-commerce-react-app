@@ -14,7 +14,7 @@ function ProductDetail() {
   const { product_id } = useParams();
   const basketData = useSelector((state) => state.basket.items);
   const dispatch = useDispatch();
-  const [count, setCount] = useState(0);
+  ;
   const { isLoading, error, data } = useQuery(['product', product_id], () => {
     return ProductGetDetail(product_id);
   });
@@ -32,9 +32,9 @@ function ProductDetail() {
   //   }
   // }, [basketData]);
 
-  console.log("basketData:",basketData);
+  
   const filteredData = basketData?.find((basket_item) => basket_item._id === data?._id)
-  console.log("filteredData:",filteredData);
+  
   
   const handleBasket = useCallback(() => {
     dispatch(addItem(data));

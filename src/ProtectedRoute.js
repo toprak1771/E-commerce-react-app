@@ -2,7 +2,7 @@ import React from 'react';
 import { Navigate,Outlet } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
-function ProtectedRoute({ component: Component, ...rest }) {
+function ProtectedRoute() {
   const login = useSelector((state) => state.user.login);
 
   return (

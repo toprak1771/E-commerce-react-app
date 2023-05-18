@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 import Navbar from './components/navbar/Navbar';
 import { React, useEffect, useState } from 'react';
@@ -12,6 +11,8 @@ import { setInLogin, setUserData } from './redux/user/actions';
 import { useSelector, useDispatch } from 'react-redux';
 import Profile from './pages/profile/Profile';
 import ProtectedRoute from './ProtectedRoute';
+import Basket from './pages/basket/Basket';
+import Error404 from './pages/Error404/Error404';
 
 function App() {
   const dispatch = useDispatch();
@@ -48,6 +49,8 @@ function App() {
         <Route element={<ProtectedRoute />}>
           <Route path="/profile" element={<Profile></Profile>}></Route>
         </Route>
+        <Route path='/basket' element={<Basket></Basket>}></Route>
+        <Route path='*' element={<Error404></Error404>}></Route>
       </Routes>
     </BrowserRouter>
   );
