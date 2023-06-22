@@ -6,7 +6,7 @@ function Error404() {
   return (
     <div className='mt-2 ms-3 me-3'>
       <Notification icon={<IconX size="1.1rem" />} color="red">
-        Böyle bir sayfa bulunamadı!
+        Böyle bir sayfa bulunamadı! Toprak Branchinde düzenlendi.
       </Notification>
     </div>
   );
