@@ -13,6 +13,7 @@ import { useSelector, useDispatch } from 'react-redux';
 function ProductDetail() {
   const { product_id } = useParams();
   const basketData = useSelector((state) => state.basket.items);
+  const login = useSelector((state) => state.user.login);
   const dispatch = useDispatch();
   ;
   const { isLoading, error, data } = useQuery(['product', product_id], () => {
@@ -65,7 +66,7 @@ function ProductDetail() {
       <Text tt="capitalize">{data.description}</Text>
       <Text c="blue">{data.price} TL</Text>
       <Stack spacing={2} mt={2}>
-        {!filteredData ? (
+        {!filteredData && login===true ? (
           <>
             <Button
               variant="outlined"
@@ -85,7 +86,7 @@ function ProductDetail() {
               Remove basket
             </Button>
           </>
-        ) : (
+        ) : login === true ? (
           <>
             <Button
               disabled
@@ -105,7 +106,7 @@ function ProductDetail() {
               Remove basket
             </Button>
           </>
-        )}
+        ) : ""}
       </Stack>
     </Box>
   );

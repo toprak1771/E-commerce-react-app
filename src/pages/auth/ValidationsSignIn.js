@@ -1,4 +1,4 @@
-import {object, string, number, date, InferType, ref} from 'yup';
+import {object, string} from 'yup';
 
 const validations = object({
     email: string().email("Email girmeniz gerekmektedir.").required("Burası zorunlu bir alandır."),

@@ -1,4 +1,4 @@
-import React, { useMemo,useEffect,useState } from 'react';
+import React, { useMemo, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import MaterialReactTable from 'material-react-table';
 import { MRT_Localization_TR } from 'material-react-table/locales/tr';
@@ -15,51 +15,46 @@ function Basket() {
 
   console.log('basketData:', basketData);
 
- 
-//   let tableData = null;
-//   tableData = useMemo(()=>{
-//    const result = basketData?.map((item) => {
-//         const data3 = {
-//          description:item.description,
-//          price:item.price,
-//          title:item.title,
-//          photos:item.photos
-//         };
-//         return data3;
-//       });
-//       return result;
-//  },[basketData]) 
-
+  //   let tableData = null;
+  //   tableData = useMemo(()=>{
+  //    const result = basketData?.map((item) => {
+  //         const data3 = {
+  //          description:item.description,
+  //          price:item.price,
+  //          title:item.title,
+  //          photos:item.photos
+  //         };
+  //         return data3;
+  //       });
+  //       return result;
+  //  },[basketData])
 
   const dict = {
     description: 'Açıklama',
     photos: 'Fotoğraf',
     price: 'Ücret',
     title: 'Marka',
-    _id:'Id',
-    createdAt:'Sepete Atılma tarihi'
+    _id: 'Id',
+    createdAt: 'Sepete Atılma tarihi',
   };
 
   console.log('dict:', dict);
 
-
   const columns = React.useMemo(() => {
-    if (basketData) {
+    if (basketData && basketData.length > 0) {
       const result = Object.keys(basketData[0])?.map?.((el) => {
         const cell = {
           accessorKey: el,
           header: dict && dict[el] ? dict[el] : el,
           aggregationFn: 'max',
         };
-         if (el === 'photos') {
-           cell.Cell = ({ cell }) => {
-             
-             return (
-                
-                <Image mx="auto" radius="md" src={cell.getValue()[0]}></Image>
-             );
-           };
-         }
+        if (el === 'photos') {
+          cell.Cell = ({ cell }) => {
+            return (
+              <Image mx="auto" radius="md" src={cell.getValue()[0]}></Image>
+            );
+          };
+        }
 
         return cell;
       });
@@ -69,7 +64,6 @@ function Basket() {
     return [];
   }, [basketData, dict]);
 
-  
   return (
     <>
       {basketData && (

@@ -5,12 +5,13 @@ import { useParams } from 'react-router-dom';
 import { Link, useLocation } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { ProductApi } from '../../api/ProductApi';
+import { useSelector, useDispatch } from 'react-redux';
 
 function Product() {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const page = searchParams.get('page');
-  console.log('page:', page);
+  const loginData = useSelector((state) => state.user.login);
   const { isLoading, error, data } = useQuery(['products', page], () => {
     return ProductApi(page);
   });
@@ -37,7 +38,7 @@ function Product() {
       >
         {data.products.map((item, key) => (
           <Grid.Col span={4}>
-            <Index key={key} item={item} />
+            <Index key={key} item={item} login={loginData}/>
           </Grid.Col>
         ))}
       </Grid>

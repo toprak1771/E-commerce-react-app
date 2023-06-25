@@ -10,13 +10,13 @@ import moment from 'moment';
 import { addItem, deleteItem } from '../../redux/basket/actions';
 import { useSelector, useDispatch } from 'react-redux';
 
-function Index({ item }) {
+function Index({ key,item,login }) {
  
   const basketData = useSelector((state) => state.basket.items);
   const dispatch = useDispatch();
   
  const filteredData = basketData.find((basket_item) => basket_item._id === item._id);
-
+  
   const handleBasket = useCallback(() => {
     dispatch(addItem(item));
   }, [item]);
@@ -50,7 +50,7 @@ function Index({ item }) {
             </CardContent>
           </Card>
         </Link>
-        {!filteredData ? (
+        {!filteredData && login === true ? (
               <>
                 <Button
                   variant="outlined"
@@ -70,7 +70,7 @@ function Index({ item }) {
                   Remove basket
                 </Button>
               </>
-            ) : (
+            ) : login === true ? (
               <>
                 <Button
                   disabled
@@ -90,7 +90,7 @@ function Index({ item }) {
                   Remove basket
                 </Button>
               </>
-            )}
+            ) : ""}
       </Box>
     </div>
   );
