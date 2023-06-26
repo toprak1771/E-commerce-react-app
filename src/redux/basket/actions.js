@@ -11,3 +11,9 @@ export const deleteItem = (data) => {
         data
     }
 };
+
+export const emptyItem = () => {
+    return {
+        type:'EMPTY_ITEM',
+    }
+};

@@ -1,5 +1,7 @@
 const basketData = localStorage.getItem('basket');
-const basketDataJson = JSON.parse(basketData);
+console.log("basketData:",basketData);
+
+const basketDataJson = basketData ? JSON.parse(basketData) : [];
 const defaultState = {
     items:basketDataJson ? basketDataJson : [],
 };
@@ -16,6 +18,10 @@ const basketReducer = (state = defaultState, action) => {
                 items:[
                     ...state.items.filter(item => item !== action.data)
                 ]
+            };
+        case 'EMPTY_ITEM':
+            return {
+                items:[]
             };
         default:
             return state;
