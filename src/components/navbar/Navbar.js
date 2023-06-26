@@ -14,6 +14,7 @@ function Navbar() {
   });
   const loginData = useSelector((state) => state.user.login);
   const user = useSelector((state) => state.user.data);
+  console.log('user:', user);
   const _refreshToken = localStorage.getItem('refresh_token');
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -87,11 +88,20 @@ function Navbar() {
               ) : (
                 ''
               )}
-              <Link to="/profile" className={styles.leftbutton}>
-                <Button size="small" variant="contained">
-                  Profile
-                </Button>
-              </Link>
+              {(user?.user?.role && user?.user?.role === 'admin') || (user.role === 'admin') ? (
+                <Link to="/admin" className={styles.leftbutton}>
+                  <Button size="small" variant="contained">
+                    Admin
+                  </Button>
+                </Link>
+              ) : (
+                <Link to="/profile" className={styles.leftbutton}>
+                  <Button size="small" variant="contained">
+                    Profile
+                  </Button>
+                </Link>
+              )}
+
               <Link>
                 <Button size="small" variant="contained" onClick={logOut}>
                   Logout
