@@ -11,3 +11,14 @@ export const OrderApi = async (input) => {
   });
   return data;
 };
+
+export const OrderList = async () => {
+  const token = localStorage.getItem('access_token');
+  console.log("token:",token);
+  const { data } = await axios.get('http://localhost:4000/order',{
+    headers: {
+      authorization: token,
+    },
+  });
+  return data;
+}
