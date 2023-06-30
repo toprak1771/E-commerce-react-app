@@ -17,6 +17,7 @@ import Error404 from './pages/Error404/Error404';
 import Order from './pages/admin/Order';
 import Products from './pages/admin/Products';
 import AdminHome from './pages/admin/AdminHome';
+import Items from './pages/admin/İtems';
 
 function App() {
   const dispatch = useDispatch();
@@ -59,6 +60,7 @@ function App() {
             <Route index element={<AdminHome></AdminHome>} />
             <Route path="orders" element={<Order></Order>} />
             <Route path="products" element={<Products></Products>}></Route>
+            <Route path='items' element={<Items></Items>}></Route>
           </Route>
         </Route>
 

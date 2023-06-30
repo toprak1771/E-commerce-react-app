@@ -2,8 +2,11 @@ import React, { useMemo } from 'react';
 import { OrderList } from '../../api/OrderApi';
 import { useQuery } from '@tanstack/react-query';
 import { Table } from '@mantine/core';
+import { Link, useNavigate } from 'react-router-dom';
+import styles from './styles.module.css';
 
 function Order() {
+  const navigate = useNavigate();
   const { isLoading, isError, data, error } = useQuery(['orders'], () => {
     return OrderList();
   });
@@ -40,7 +43,13 @@ function Order() {
               return (
                 <>
                   <tr>
-                    <td>{item.items.length}</td>
+                    <td>
+                      <Link className={styles.table} to="/admin/items" state={{
+                        items:item.items
+                      }}>
+                        {item.items.length}
+                      </Link>
+                    </td>
                     <td>{item.user.email}</td>
                     <td>{item.adress}</td>
                   </tr>
