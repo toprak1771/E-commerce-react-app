@@ -6,6 +6,7 @@ import SıgnIn from './pages/auth/SıgnIn';
 import Register from './pages/auth/Register';
 import Product from './pages/products/Product';
 import ProductDetail from './pages/products/ProductDetail';
+import Admin from './pages/admin/Admin';
 import { AuthMe } from './api/AuthApi';
 import { setInLogin, setUserData } from './redux/user/actions';
 import { useSelector, useDispatch } from 'react-redux';
@@ -13,6 +14,9 @@ import Profile from './pages/profile/Profile';
 import ProtectedRoute from './ProtectedRoute';
 import Basket from './pages/basket/Basket';
 import Error404 from './pages/Error404/Error404';
+import Order from './pages/admin/Order';
+import Products from './pages/admin/Products';
+import AdminHome from './pages/admin/AdminHome';
 
 function App() {
   const dispatch = useDispatch();
@@ -28,6 +32,7 @@ function App() {
     (async () => {
       try {
         const me = await AuthMe(token);
+        dispatch(setUserData(me));
         dispatch(setInLogin(true));
         setLoading(false);
       } catch (e) {}
@@ -46,11 +51,19 @@ function App() {
         ></Route>
         <Route path="/signin" element={<SıgnIn></SıgnIn>}></Route>
         <Route path="/signUp" element={<Register></Register>}></Route>
-        <Route element={<ProtectedRoute />}>
+        <Route element={<ProtectedRoute type="profile" />}>
           <Route path="/profile" element={<Profile></Profile>}></Route>
         </Route>
-        <Route path='/basket' element={<Basket></Basket>}></Route>
-        <Route path='*' element={<Error404></Error404>}></Route>
+        <Route element={<ProtectedRoute type="admin" />}>
+          <Route path="admin" element={<Admin></Admin>}>
+            <Route index element={<AdminHome></AdminHome>} />
+            <Route path="orders" element={<Order></Order>} />
+            <Route path="products" element={<Products></Products>}></Route>
+          </Route>
+        </Route>
+
+        <Route path="/basket" element={<Basket></Basket>}></Route>
+        <Route path="*" element={<Error404></Error404>}></Route>
       </Routes>
     </BrowserRouter>
   );
